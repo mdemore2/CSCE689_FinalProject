@@ -1,4 +1,5 @@
 #include "DivFinder.h"
+#include "DivFinderSP.h"
 #include <cstdlib>
 #include "config.h"
 #include <iostream>
@@ -21,7 +22,8 @@ int main(int argc, char *argv[]) {
     }
     
     LARGEINT num = (LARGEINT)argv[0];
-    DivFinder::calcPollardsRho(<LARGEINT> num);
+    DivFinderSP::DivFinder df = new DivFinderSP::DivFinder(num);
+    df.calcPollardsRho(num);
 
     return 0;
 
