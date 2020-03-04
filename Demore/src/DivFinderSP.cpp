@@ -167,7 +167,7 @@ void DivFinderSP::factor(LARGEINT n) {
    return;
 }
 
-void DivFinderSP::PolRho()
+LARGEINT DivFinderSP::PolRho()
 {
-   calcPollardsRho(_orig_val);
+   return calcPollardsRho(this->_orig_val);
 }

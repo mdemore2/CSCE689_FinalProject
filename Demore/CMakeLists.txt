@@ -7,7 +7,7 @@ add_executable(DivFindSP src/DivFinder_main.cpp
 				src/DivFinder.cpp	include/DivFinder.h
                src/DivFinderSP.cpp	include/DivFinderSP.h)
 			   
-add_executable(DivFindT src/DivFinder_main.cpp
+add_executable(DivFindT src/DivFinderT_main.cpp
 				src/DivFinder.cpp	include/DivFinder.h
 				src/DivFinderT.cpp	include/DivFinderT.h)
 

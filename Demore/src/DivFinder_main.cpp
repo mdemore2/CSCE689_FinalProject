@@ -15,15 +15,26 @@
 
 int main(int argc, char *argv[]) {
 
-    if(argc < 1)
+    if(argc < 2)
     {
-        std::cout << "Enter prime to factor.";
+        std::cout << "Enter prime to factor.\n";
         return -1;
     }
     
-    LARGEINT num = (LARGEINT)argv[0];
+    LARGEINT num = (LARGEINT)*argv[1];
     DivFinderSP df = DivFinderSP(num);
-    df.PolRho();
+    
+    LARGEINT divisor = df.PolRho();
+
+    if(divisor == num)
+    {
+        std::cout << "Number is prime.\n";
+    }
+    else
+    {
+        std::cout << "Divisible by " << divisor << ".\n";
+    }
+    
 
     return 0;
 

@@ -34,9 +34,9 @@ const unsigned int primecheck_depth = 10;
 class DivFinderT : public DivFinder { 
    public:
       DivFinderT(LARGEINT input_value);
-      virtual ~DivFinderSP();
+      virtual ~DivFinderT();
 
-      virtual void PolRho();
+      virtual LARGEINT PolRho();
 
       bool isPrimeBF(LARGEINT n, LARGEINT &divisor);
 

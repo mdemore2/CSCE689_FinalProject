@@ -36,7 +36,7 @@ class DivFinder {
       virtual ~DivFinder();
 
       // Overload me 
-      virtual void PolRho() = 0;
+      virtual LARGEINT PolRho() = 0;
 
       LARGEINT getOrigVal() { return _orig_val; }
 
@@ -54,12 +54,13 @@ class DivFinder {
 		
       int verbose = 0;
 
+      LARGEINT _orig_val;
       // Do not forget, your constructor should call this constructor
 
    private:
       DivFinder() {}; // Prevent instantiation without calling initialization 
 
-      LARGEINT _orig_val;
+      
 
       // Stuff to be left alone
 };

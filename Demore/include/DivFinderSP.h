@@ -36,7 +36,7 @@ class DivFinderSP : public DivFinder {
       DivFinderSP(LARGEINT input_value);
       virtual ~DivFinderSP();
 
-      virtual void PolRho();
+      virtual LARGEINT PolRho();
 
       bool isPrimeBF(LARGEINT n, LARGEINT &divisor);
 
