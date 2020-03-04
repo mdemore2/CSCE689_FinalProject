@@ -22,8 +22,8 @@ int main(int argc, char *argv[]) {
     }
     
     LARGEINT num = (LARGEINT)argv[0];
-    DivFinderSP::DivFinder df = new DivFinderSP::DivFinder(num);
-    df.calcPollardsRho(num);
+    DivFinderSP df = DivFinderSP(num);
+    df.PolRho();
 
     return 0;
 
