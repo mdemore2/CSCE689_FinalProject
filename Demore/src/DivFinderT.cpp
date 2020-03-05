@@ -175,7 +175,9 @@ LARGEINT DivFinderT::PolRho()
    if (n <= 3)
       return n;
       
-   LARGEINT2X d = 1;
+   LARGEINT2X result = n;
+   bool quit = false;
+
    #pragma omp parallel
    {   
    // Initialize our random number generator
@@ -187,11 +189,11 @@ LARGEINT DivFinderT::PolRho()
 
    // random number for c = [1, N)
    LARGEINT2X c = (rand()%(n-1)) + 1;
+   LARGEINT2X d = 1;
 
-   
 
    // Loop until either we find the gcd or gcd = 1
-   while (d == 1) {
+   while (d == 1 && !quit) {
       // "Tortoise move" - Update x to f(x) (modulo n)
       // f(x) = x^2 + c f
       x = (modularPow(x, 2, n) + c + n) % n;
@@ -209,11 +211,12 @@ LARGEINT DivFinderT::PolRho()
 
       // If we found a divisor, factor primes out of each side of the divisor
       if ((d != 1) && (d != n)) {
-         break;
+         quit = true;
+         result = d;
 
       }
 
    }
    }
-   return (LARGEINT) d;
+   return (LARGEINT) result;
 }
