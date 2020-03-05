@@ -3,7 +3,9 @@
 #include <cstdlib>
 #include "config.h"
 #include <iostream>
+#include <chrono>
 
+using namespace std::chrono;
 
 #define LARGEINT uint128_t
 
@@ -32,12 +34,12 @@ int main(int argc, char *argv[]) {
 
 
     DivFinderT df = DivFinderT(num);
-    LARGEINT divisor = num;
     
-    #pragma omp parallel
-    {
-        divisor = df.PolRho();
-    }
+    auto start = high_resolution_clock::now();
+    LARGEINT divisor = df.PolRho();
+    auto stop = high_resolution_clock::now();
+    
+    auto duration = duration_cast<microseconds>(stop - start);
 
     if(divisor == num)
     {
@@ -48,6 +50,8 @@ int main(int argc, char *argv[]) {
         std::cout << "Divisible by " << divisor << ".\n";
     }
     
+    std::cout << "Completed in " << duration.count() << " microseconds.\n";
+
 
     return 0;
 
