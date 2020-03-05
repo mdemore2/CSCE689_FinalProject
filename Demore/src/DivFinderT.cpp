@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <boost/multiprecision/cpp_int.hpp>
 #include <boost/integer/common_factor.hpp>
+#include "omp.h"
 
 
 DivFinderT::DivFinderT(LARGEINT number):DivFinder(number) {
@@ -167,3 +168,7 @@ void DivFinderT::factor(LARGEINT n) {
    return;
 }
 
+LARGEINT DivFinderT::PolRho()
+{
+   return calcPollardsRho(this->_orig_val);
+}

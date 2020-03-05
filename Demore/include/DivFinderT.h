@@ -43,6 +43,7 @@ class DivFinderT : public DivFinder {
    protected:
 
       void factor(LARGEINT n);
+      void factor();
 
 
    private:
