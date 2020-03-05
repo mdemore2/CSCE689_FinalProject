@@ -170,5 +170,50 @@ void DivFinderT::factor(LARGEINT n) {
 
 LARGEINT DivFinderT::PolRho()
 {
-   return calcPollardsRho(this->_orig_val);
+   LARGEINT n = _orig_val;
+
+   if (n <= 3)
+      return n;
+      
+   LARGEINT2X d = 1;
+   #pragma omp parallel
+   {   
+   // Initialize our random number generator
+   srand(time(NULL));
+
+   // pick a random number from the range [2, N)
+   LARGEINT2X x = (rand()%(n-2)) + 2;
+   LARGEINT2X y = x;    // Per the algorithm
+
+   // random number for c = [1, N)
+   LARGEINT2X c = (rand()%(n-1)) + 1;
+
+   
+
+   // Loop until either we find the gcd or gcd = 1
+   while (d == 1) {
+      // "Tortoise move" - Update x to f(x) (modulo n)
+      // f(x) = x^2 + c f
+      x = (modularPow(x, 2, n) + c + n) % n;
+
+      // "Hare move" - Update y to f(f(y)) (modulo n)
+      y = (modularPow(y, 2, n) + c + n) % n;
+      y = (modularPow(y, 2, n) + c + n) % n;
+
+      // Calculate GCD of |x-y| and tn
+      LARGESIGNED2X z = (LARGESIGNED2X) x - (LARGESIGNED2X) y;
+      if (z < 0)
+         d = boost::math::gcd((LARGEINT2X) -z, (LARGEINT2X) n);
+      else
+         d = boost::math::gcd((LARGEINT2X) z, (LARGEINT2X) n);
+
+      // If we found a divisor, factor primes out of each side of the divisor
+      if ((d != 1) && (d != n)) {
+         break;
+
+      }
+
+   }
+   }
+   return (LARGEINT) d;
 }
