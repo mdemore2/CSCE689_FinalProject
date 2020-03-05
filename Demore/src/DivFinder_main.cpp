@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include "config.h"
 #include <iostream>
+#include <sstream>
 
 
 #define LARGEINT uint128_t
@@ -21,7 +22,15 @@ int main(int argc, char *argv[]) {
         return -1;
     }
     
-    LARGEINT num = (LARGEINT)*argv[1];
+    LARGEINT num;
+    std::istringstream ss(argv[1]);
+    if (!(ss >> num)) {
+        std::cerr << "Invalid number: " << argv[1] << '\n';
+    }   
+    else if (!ss.eof()) {
+    std::cerr << "Trailing characters after number: " << argv[1] << '\n';
+    }
+    
     DivFinderSP df = DivFinderSP(num);
     
     LARGEINT divisor = df.PolRho();
