@@ -4,6 +4,9 @@
 #include "config.h"
 #include <iostream>
 #include <sstream>
+#include <chrono>
+
+using namespace std::chrono;
 
 
 #define LARGEINT uint128_t
@@ -33,7 +36,12 @@ int main(int argc, char *argv[]) {
     
     DivFinderSP df = DivFinderSP(num);
     
+    auto start = high_resolution_clock::now();
     LARGEINT divisor = df.PolRho();
+    auto stop = high_resolution_clock::now();
+    
+    auto duration = duration_cast<microseconds>(stop - start);
+
 
     if(divisor == num)
     {
@@ -44,6 +52,7 @@ int main(int argc, char *argv[]) {
         std::cout << "Divisible by " << divisor << ".\n";
     }
     
+    std::cout << "Completed in " << duration.count() << " microseconds.\n";
 
     return 0;
 
