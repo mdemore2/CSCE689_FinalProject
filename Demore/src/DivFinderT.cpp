@@ -170,7 +170,9 @@ void DivFinderT::factor(LARGEINT n) {
 
 LARGEINT DivFinderT::PolRho()
 {
-   LARGEINT n = _orig_val;
+   return calcPollardsRho(this->_orig_val);
+   //factor();
+   /*LARGEINT n = _orig_val;
 
    if (n <= 3)
       return n;
@@ -217,6 +219,6 @@ LARGEINT DivFinderT::PolRho()
       }
 
    }
-   }
-   return (LARGEINT) result;
+   }*/
+   //return (LARGEINT) _orig_val;
 }
