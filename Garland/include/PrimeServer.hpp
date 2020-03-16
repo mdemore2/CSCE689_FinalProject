@@ -26,7 +26,7 @@ class PrimeServer
     PrimeServer(std::string ip_addr, unsigned int port, LARGEINT prime);
 
     void start();
-    bool checkPrime();
+    void checkPrime();
     bool sendMsg();
     void startServer();
 
@@ -36,7 +36,7 @@ class PrimeServer
     unsigned int port;
     LARGEINT prime;
     int sock = -1;
-    bool is_prime = false;
+    bool is_prime = false, rec_msg = false, checking_prime = true;
     
 };
 

@@ -21,7 +21,7 @@ PrimeServer::PrimeServer(std::string ip_addr, unsigned int port, LARGEINT prime)
 }
 
 
-bool PrimeServer::checkPrime() {
+void PrimeServer::checkPrime() {
     //returns true if prime, false otherwise
 
     DivFinderT df = DivFinderT(prime);
@@ -36,18 +36,19 @@ bool PrimeServer::checkPrime() {
     if(divisor == prime)
     {
         std::cout << "Number is prime.\n";
-        return true;
+        this->is_prime = true;
     }
     else
     {
         std::cout << "Divisible by " << divisor << ".\n";
-        return false;
+        this->is_prime = false;
     }
-    
+    this->checking_prime = false;
     std::cout << "Completed in " << duration.count() << " microseconds.\n";
 }
 
 void PrimeServer::start() {
+    usleep(1000000);
     std::thread prime_cacl(&PrimeServer::checkPrime, this);
     std::thread server(&PrimeServer::startServer, this);
 
@@ -94,16 +95,18 @@ void PrimeServer::startServer() {
     FD_SET(this->sock, &all_sock);
     // Set as max socket until we find another
     max_sock = this->sock;
-    if(port == 9997) {
-        usleep(3000000);
-        sendMsg();
-    }
-    while(!is_prime) {
-        
+    struct timeval tv;
+    tv.tv_sec = 1;
+    tv.tv_usec = 0;
+    // if(port == 9997) {
+    //     usleep(3000000);
+    //     sendMsg();
+    // }
+    while(this->checking_prime && !this->rec_msg) {
         // Read sock is modified by select so we must reset it each time
         read_sock = all_sock;
 
-        if(select(max_sock+1, &read_sock, NULL, NULL, NULL) < 0)
+        if(select(max_sock+1, &read_sock, NULL, NULL, &tv) < 0)
         {
             // Unrecoverable: if we cannot find the socket, we wont be able
             // to process any data
@@ -144,12 +147,28 @@ void PrimeServer::startServer() {
                             // If the connection is closed, clear it from our list
                             if(!conn.handleConnection())
                                 FD_CLR(conn.getSocket(), &all_sock);
+                            else
+                            {
+                                    this->rec_msg = true;
+                                    break;
+                            }
+                            
                         }
                     }
                 }
             }
         }
     }
+    if(!this->rec_msg && this->is_prime)
+        sendMsg();
+
+    if(this->is_prime){
+        std::cout << "Prime is true\n";
+    } else
+    {
+        std::cout << "Prime is false\n";
+    }
+    
 }
 
 bool PrimeServer::sendMsg() {

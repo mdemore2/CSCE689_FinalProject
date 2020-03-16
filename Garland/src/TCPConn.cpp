@@ -32,7 +32,7 @@ bool TCPConn::handleConnection() {
    std::string msg_str(msg);
 
    if(msg == "true") {
-      std::cout << "Good connection!\n";
+      std::cout << "Another server found an answer!\n";
       return true;
    } else {
       std::cout << "Received " << msg << "\n";
