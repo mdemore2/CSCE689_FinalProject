@@ -65,17 +65,20 @@ LARGEINT DivFinder::calcPollardsRho(LARGEINT n) {
    if (n <= 3)
       return n;
 
+  
    // Initialize our random number generator
    srand(time(NULL));
 
    // pick a random number from the range [2, N)
    LARGEINT2X x = (rand()%(n-2)) + 2;
    LARGEINT2X y = x;    // Per the algorithm
+   
+   LARGEINT2X d = 1;
 
    // random number for c = [1, N)
    LARGEINT2X c = (rand()%(n-1)) + 1;
 
-   LARGEINT2X d = 1;
+   //LARGEINT2X d = 1;
 
    // Loop until either we find the gcd or gcd = 1
    while (d == 1) {
@@ -101,6 +104,7 @@ LARGEINT DivFinder::calcPollardsRho(LARGEINT n) {
       }
 
    }
+   
    return (LARGEINT) d;
 }
 
