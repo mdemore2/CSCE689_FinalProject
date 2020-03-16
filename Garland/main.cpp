@@ -22,9 +22,9 @@
 int main(int argc, char *argv[]) {
 
     // Check if the user entered a number
-    std::string num;
+    //std::string num;
+    LARGEINT num;
     try{
-        LARGEINT num;
         std::istringstream ss(argv[1]);
         if (!(ss >> num)) {
             std::cerr << "Invalid number: " << argv[1] << '\n';
@@ -40,9 +40,9 @@ int main(int argc, char *argv[]) {
     // TODO: Add in number checking
     std::cout << "Starting Server Threads...\n";
     std::string ip_addr = "127.0.0.1";
-    PrimeServer* server1 = new PrimeServer(ip_addr, 9997, 10);
-    PrimeServer* server2 = new PrimeServer(ip_addr, 9998, 10);
-    PrimeServer* server3 = new PrimeServer(ip_addr, 9999, 10);
+    PrimeServer* server1 = new PrimeServer(ip_addr, 9997, num);
+    PrimeServer* server2 = new PrimeServer(ip_addr, 9998, num);
+    PrimeServer* server3 = new PrimeServer(ip_addr, 9999, num);
 
     std::thread thd1(&PrimeServer::start, server1);
     std::thread thd2(&PrimeServer::start, server2);
