@@ -65,8 +65,7 @@ LARGEINT DivFinder::calcPollardsRho(LARGEINT n) {
    if (n <= 3)
       return n;
    
-   #pragma omp parallel
-   {
+   
    // Initialize our random number generator
    srand(time(NULL));
 
@@ -103,7 +102,7 @@ LARGEINT DivFinder::calcPollardsRho(LARGEINT n) {
       }
 
    }
-   }
+   
    return (LARGEINT) d;
 }
 
