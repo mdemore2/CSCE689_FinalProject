@@ -14,13 +14,34 @@
 #include <string.h>
 #include <unistd.h>
 #include <iostream>
+#include <chrono>
 
 
 PrimeServer::PrimeServer(std::string ip_addr, unsigned int port, unsigned int prime) : ip_addr(ip_addr), port(port), prime(prime) {
 }
 
 bool PrimeServer::checkPrime() {
+    //returns true if prime, false otherwise
     // Mark, add your code here
+    auto start = high_resolution_clock::now();
+    LARGEINT divisor = df.PolRho();
+    //df.factor(num);
+    auto stop = high_resolution_clock::now();
+    
+    auto duration = duration_cast<microseconds>(stop - start);
+
+    if(divisor == num)
+    {
+        std::cout << "Number is prime.\n";
+        return true;
+    }
+    else
+    {
+        std::cout << "Divisible by " << divisor << ".\n";
+        return false;
+    }
+    
+    std::cout << "Completed in " << duration.count() << " microseconds.\n";
 }
 
 void PrimeServer::start() {
