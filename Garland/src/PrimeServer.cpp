@@ -1,6 +1,9 @@
 #include "PrimeServer.hpp"
 #include "TCPConn.hpp"
 
+#include "DivFinder.h"
+#include "DivFinderT.h"
+
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <fcntl.h>

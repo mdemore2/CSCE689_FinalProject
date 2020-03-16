@@ -37,6 +37,7 @@ int main(int argc, char *argv[]) {
     
     auto start = high_resolution_clock::now();
     LARGEINT divisor = df.PolRho();
+    //df.factor(num);
     auto stop = high_resolution_clock::now();
     
     auto duration = duration_cast<microseconds>(stop - start);
