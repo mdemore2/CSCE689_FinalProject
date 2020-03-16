@@ -36,7 +36,7 @@ class DivFinder {
       virtual ~DivFinder();
 
       // Overload me 
-      virtual LARGEINT PolRho() = 0;
+      virtual LARGEINT PolRho(bool &stop) = 0;
 
       LARGEINT getOrigVal() { return _orig_val; }
 

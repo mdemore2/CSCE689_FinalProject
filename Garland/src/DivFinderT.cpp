@@ -168,7 +168,7 @@ void DivFinderT::factor(LARGEINT n) {
    return;
 }
 
-LARGEINT DivFinderT::PolRho()
+LARGEINT DivFinderT::PolRho(bool& stop)
 {
    
    LARGEINT n = _orig_val;
@@ -194,7 +194,7 @@ LARGEINT DivFinderT::PolRho()
 
 
    // Loop until either we find the gcd or gcd = 1
-   while (d == 1 && !quit) {
+   while (d == 1 && !stop && !quit) {
       // "Tortoise move" - Update x to f(x) (modulo n)
       // f(x) = x^2 + c f
       x = (modularPow(x, 2, n) + c + n) % n;

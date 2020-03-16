@@ -27,21 +27,22 @@ void PrimeServer::checkPrime() {
     DivFinderT df = DivFinderT(prime);
 
     auto start = std::chrono::high_resolution_clock::now();
-    LARGEINT divisor = df.PolRho();
+    LARGEINT divisor = df.PolRho(this->rec_msg);
     //df.factor(num);
     auto stop = std::chrono::high_resolution_clock::now();
     
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-
-    if(divisor == prime)
-    {
-        std::cout << "Number is prime.\n";
-        this->is_prime = true;
-    }
-    else
-    {
-        std::cout << "Divisible by " << divisor << ".\n";
-        this->is_prime = false;
+    if(!this->rec_msg) {
+        if(divisor == prime)
+        {
+            std::cout << "Number is prime.\n";
+            this->is_prime = true;
+        }
+        else
+        {
+            std::cout << "Divisible by " << divisor << ".\n";
+            this->is_prime = false;
+        }
     }
     this->checking_prime = false;
     std::cout << "Completed in " << duration.count() << " microseconds.\n";
@@ -121,7 +122,6 @@ void PrimeServer::startServer() {
                 // New connection because the listener socket has data
                 if(i == this->sock)
                 {
-                    std::cout << "New Connection!\n";
                     TCPConn new_conn;
                     if(new_conn.accept_conn(this->sock) == false)
                         std::cout << "\nError: Accepting new Connection\n";
@@ -138,7 +138,6 @@ void PrimeServer::startServer() {
                 // Data from an existing connection
                 else
                 {
-                    std::cout << "Existing Connection\n";
                     // Loop through our map of sockets and tcpconn objects
                     for(auto conn : connections)
                     {
@@ -159,8 +158,10 @@ void PrimeServer::startServer() {
             }
         }
     }
-    if(!this->rec_msg && this->is_prime)
+    if(!this->rec_msg && !this->is_prime){
+        std::cout << "Sending message\n";
         sendMsg();
+    }
 
     if(this->is_prime){
         std::cout << "Prime is true\n";
@@ -205,7 +206,7 @@ bool PrimeServer::sendMsg() {
     }
     close(send_sock);
     
-    std::cout << "Connecting to server2\n";
+    std::cout << "Connecting to server2...\n";
     address.sin_port = htons( port2 );
     if(( send_sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
         std::cout << "Failed to get sending socket\n";

@@ -31,7 +31,7 @@ bool TCPConn::handleConnection() {
    msg[msg_len] = '\0';
    std::string msg_str(msg);
 
-   if(msg == "true") {
+   if(msg_str == "true") {
       std::cout << "Another server found an answer!\n";
       return true;
    } else {

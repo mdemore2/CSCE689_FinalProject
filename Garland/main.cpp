@@ -51,8 +51,4 @@ int main(int argc, char *argv[]) {
     thd1.join();
     thd2.join();
     thd3.join();
-    
-    std::cout << "Processing " << num << " with 3 nodes\n";
-    
-    // TODO: Start different processing nodes
 }
