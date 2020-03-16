@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <string>
+#include <thread>
 
 #include "DivFinder.h"
 #include "DivFinderT.h"
@@ -25,10 +26,11 @@ class PrimeServer
     PrimeServer(std::string ip_addr, unsigned int port, LARGEINT prime);
 
     void start();
-
-    private:
     bool checkPrime();
     bool sendMsg();
+    void startServer();
+
+    private:
 
     std::string ip_addr;
     unsigned int port;

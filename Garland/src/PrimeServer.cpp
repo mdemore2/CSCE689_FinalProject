@@ -20,6 +20,7 @@
 PrimeServer::PrimeServer(std::string ip_addr, unsigned int port, LARGEINT prime) : ip_addr(ip_addr), port(port), prime(prime) {
 }
 
+
 bool PrimeServer::checkPrime() {
     //returns true if prime, false otherwise
 
@@ -47,6 +48,15 @@ bool PrimeServer::checkPrime() {
 }
 
 void PrimeServer::start() {
+    std::thread prime_cacl(&PrimeServer::checkPrime, this);
+    std::thread server(&PrimeServer::startServer, this);
+
+    prime_cacl.join();
+    server.join();
+}
+
+void PrimeServer::startServer() {
+
     if((this->sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
         // Unrecoverable: if we cannot obtain a socket, we cannot have a server.
         throw std::runtime_error("Failed to create socket");
