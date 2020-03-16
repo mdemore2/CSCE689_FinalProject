@@ -40,7 +40,7 @@ void PrimeServer::checkPrime() {
         }
         else
         {
-            std::cout << "Divisible by " << divisor << ".\n";
+            std::cout << "Divisible by " << divisor << " and " << (prime/divisor) << ".\n";
             this->is_prime = false;
         }
     }
