@@ -5,13 +5,13 @@ class TCPConn
 {
    public:
 
-   bool accept(int socket);
+   bool accept_conn(int socket);
    bool handleConnection();
 
    int getSocket();
 
    private:
-   int socket;
+   int sock;
 };
 
 

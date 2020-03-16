@@ -1,11 +1,18 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(primesvr VERSION 0.1.0)
+project(prime_server)
 
-include(CTest)
-enable_testing()
+# specify the C++ standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_executable(primesvr src/primesvr_main.cpp)
+include_directories(include)
 
-set(CPACK_PROJECT_NAME ${PROJECT_NAME})
-set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-include(CPack)
+add_executable(prime_server
+  main.cpp
+  src/PrimeServer.cpp
+  include/PrimeServer.hpp
+  src/TCPConn.cpp
+  include/TCPConn.hpp
+)
+
+target_link_libraries(prime_server -lpthread)
