@@ -17,20 +17,22 @@
 #include <chrono>
 
 
-PrimeServer::PrimeServer(std::string ip_addr, unsigned int port, unsigned int prime) : ip_addr(ip_addr), port(port), prime(prime) {
+PrimeServer::PrimeServer(std::string ip_addr, unsigned int port, LARGEINT prime) : ip_addr(ip_addr), port(port), prime(prime) {
 }
 
 bool PrimeServer::checkPrime() {
     //returns true if prime, false otherwise
-    // Mark, add your code here
-    auto start = high_resolution_clock::now();
+
+    DivFinderT df = DivFinderT(prime);
+
+    auto start = std::chrono::high_resolution_clock::now();
     LARGEINT divisor = df.PolRho();
     //df.factor(num);
-    auto stop = high_resolution_clock::now();
+    auto stop = std::chrono::high_resolution_clock::now();
     
-    auto duration = duration_cast<microseconds>(stop - start);
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
-    if(divisor == num)
+    if(divisor == prime)
     {
         std::cout << "Number is prime.\n";
         return true;

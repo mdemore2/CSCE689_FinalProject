@@ -3,6 +3,12 @@
 #include <thread>
 #include <chrono>
 #include "PrimeServer.hpp"
+#include "DivFinder.h"
+#include "DivFinderT.h"
+#include <cstdlib>
+#include "config.h"
+#include <chrono>
+
 
 #define LARGEINT uint128_t
 

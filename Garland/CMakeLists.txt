@@ -22,5 +22,5 @@ add_executable(prime_server
   include/TCPConn.hpp
 )
 
-target_link_libraries(prime_server -lpthread)
-target_link_libraries(prime_server PRIVATE OpenMP::OpenMP_CXX)
+target_link_libraries(prime_server PRIVATE OpenMP::OpenMP_CXX -lpthread)
+#target_link_libraries(prime_server PRIVATE OpenMP::OpenMP_CXX)
