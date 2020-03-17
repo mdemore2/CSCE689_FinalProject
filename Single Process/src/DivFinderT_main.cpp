@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
     }
     else
     {
-        std::cout << "Divisible by " << divisor << ".\n";
+        std::cout << "Divisible by "  " and " << (num/divisor) << ".\n";
     }
     
     std::cout << "Completed in " << duration.count() << " microseconds.\n";
