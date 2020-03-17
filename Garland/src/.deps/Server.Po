@@ -1,5 +1,0 @@
-Server.o: Server.cpp /usr/include/stdc-predef.h ../include/Server.h
-
-/usr/include/stdc-predef.h:
-
-../include/Server.h:
