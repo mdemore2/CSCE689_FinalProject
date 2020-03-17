@@ -17,10 +17,18 @@
 #include <chrono>
 
 
-PrimeServer::PrimeServer(std::string ip_addr, unsigned int port, LARGEINT prime) : ip_addr(ip_addr), port(port), prime(prime) {
+PrimeServer::PrimeServer(std::string ip_addr, unsigned int port, LARGEINT prime) : ip_addr(ip_addr), port(port), prime(prime) 
+{
+    
 }
 
-
+/****************************************************************************************
+*   checkPrime():   Attempts to find if a number is prime using Pollard Rho Algorithm   *
+*                                                                                       *
+*   Parameters:     n/a                                                                 *
+*                                                                                       *
+*   Return:         n/a, outputs to console the divsors or whether or not it's prime    *
+*****************************************************************************************/
 void PrimeServer::checkPrime() {
     //returns true if prime, false otherwise
 
@@ -48,6 +56,13 @@ void PrimeServer::checkPrime() {
     std::cout << "Completed in " << duration.count() << " microseconds.\n";
 }
 
+/****************************************************************************************
+*   start():    Starts threads for the prime calculator and the communication server    *
+*                                                                                       *
+*   Parameters: n/a                                                                     *
+*                                                                                       *
+*   Return:     n/a                                                                     *
+*****************************************************************************************/
 void PrimeServer::start() {
     usleep(1000000);
     std::thread prime_cacl(&PrimeServer::checkPrime, this);
@@ -57,6 +72,13 @@ void PrimeServer::start() {
     server.join();
 }
 
+/********************************************************************************************
+*   startServer():  Communication server that sets up a listening socket for incoming comms *
+*                                                                                           *
+*   Parameters:     n/a                                                                     *
+*                                                                                           *
+*   Return:         n/a                                                                     *
+*********************************************************************************************/
 void PrimeServer::startServer() {
 
     if((this->sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
@@ -99,10 +121,7 @@ void PrimeServer::startServer() {
     struct timeval tv;
     tv.tv_sec = 1;
     tv.tv_usec = 0;
-    // if(port == 9997) {
-    //     usleep(3000000);
-    //     sendMsg();
-    // }
+    
     while(this->checking_prime && !this->rec_msg) {
         // Read sock is modified by select so we must reset it each time
         read_sock = all_sock;
@@ -148,8 +167,9 @@ void PrimeServer::startServer() {
                                 FD_CLR(conn.getSocket(), &all_sock);
                             else
                             {
-                                    this->rec_msg = true;
-                                    break;
+                                // Another server has found the solution
+                                this->rec_msg = true;
+                                break;
                             }
                             
                         }
@@ -158,20 +178,22 @@ void PrimeServer::startServer() {
             }
         }
     }
+    // Send a message if one has not yet be received and we've found
+    // that this number is not prime
     if(!this->rec_msg && !this->is_prime){
-        std::cout << "Sending message\n";
+        // std::cout << "Sending message\n";
         sendMsg();
-    }
-
-    if(this->is_prime){
-        std::cout << "Prime is true\n";
-    } else
-    {
-        std::cout << "Prime is false\n";
     }
     
 }
 
+/********************************************************************************************
+*   sendMsg():      Sends a message to other servers if this server has found a divisor     *
+*                                                                                           *
+*   Parameters:     n/a                                                                     *
+*                                                                                           *
+*   Return:         true if good send                                                       *
+*********************************************************************************************/
 bool PrimeServer::sendMsg() {
     unsigned int port1, port2;
     if(port == 9997) {
@@ -194,7 +216,7 @@ bool PrimeServer::sendMsg() {
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = inet_addr(ip_addr.c_str());
     address.sin_port = htons( port1 );
-    std::cout << "Client: Connecting to server1...\n";
+    // std::cout << "Client: Connecting to server1...\n";
     int conn;
     if(connect(send_sock, (struct  sockaddr *)&address, sizeof(address)) < 0)
     {
@@ -206,7 +228,7 @@ bool PrimeServer::sendMsg() {
     }
     close(send_sock);
     
-    std::cout << "Connecting to server2...\n";
+    // std::cout << "Connecting to server2...\n";
     address.sin_port = htons( port2 );
     if(( send_sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
         std::cout << "Failed to get sending socket\n";

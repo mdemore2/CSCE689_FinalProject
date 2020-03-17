@@ -1,32 +1,19 @@
-/* include/config.h.  Generated from config.h.in by configure.  */
-/* include/config.h.in.  Generated from configure.ac by autoheader.  */
+/* config.h.  Generated from config.h.in by configure.  */
+/* config.h.in.  Generated from configure.ac by autoheader.  */
 
-/* Define to 1 if you have the <arpa/inet.h> header file. */
-#define HAVE_ARPA_INET_H 1
+#define LARGEINT uint128_t
 
-/* Define to 1 if you have the `bzero' function. */
-#define HAVE_BZERO 1
+/* "Unsigned int twice as large as LARGEINT (bit-wise)" */
+#define LARGEINT2X uint256_t
 
-/* Define to 1 if you have the <fcntl.h> header file. */
-#define HAVE_FCNTL_H 1
+/* "Signed int made of twice the bits as LARGEINT2X" */
+#define LARGESIGNED2X int512_t
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
 
-/* Define to 1 if you have the `crypto++' library (-lcrypto++). */
-#define HAVE_LIBCRYPTO__ 1
-
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
-
-/* Define to 1 if you have the <netinet/in.h> header file. */
-#define HAVE_NETINET_IN_H 1
-
-/* Define to 1 if you have the `select' function. */
-#define HAVE_SELECT 1
-
-/* Define to 1 if you have the `socket' function. */
-#define HAVE_SOCKET 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
@@ -40,29 +27,17 @@
 /* Define to 1 if you have the <string.h> header file. */
 #define HAVE_STRING_H 1
 
-/* Define to 1 if you have the `strtol' function. */
-#define HAVE_STRTOL 1
-
-/* Define to 1 if you have the <sys/socket.h> header file. */
-#define HAVE_SYS_SOCKET_H 1
-
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
 
 /* Define to 1 if you have the <sys/types.h> header file. */
 #define HAVE_SYS_TYPES_H 1
 
-/* Define to 1 if you have the <termios.h> header file. */
-#define HAVE_TERMIOS_H 1
-
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1
 
 /* Define to 1 if the system has the type `_Bool'. */
 #define HAVE__BOOL 1
-
-/* Name of package */
-#define PACKAGE "full-package-name"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "BUG-REPORT-ADDRESS"
@@ -85,26 +60,20 @@
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
-/* Version number of package */
-#define VERSION "VERSION"
-
 /* Define for Solaris 2.5.1 so the uint32_t typedef from <sys/synch.h>,
    <pthread.h>, or <semaphore.h> is not used. If the typedef were allowed, the
    #define below would cause a syntax error. */
 /* #undef _UINT32_T */
 
-/* Define for Solaris 2.5.1 so the uint8_t typedef from <sys/synch.h>,
+/* Define for Solaris 2.5.1 so the uint64_t typedef from <sys/synch.h>,
    <pthread.h>, or <semaphore.h> is not used. If the typedef were allowed, the
    #define below would cause a syntax error. */
-/* #undef _UINT8_T */
-
-/* Define to `int' if <sys/types.h> does not define. */
-/* #undef ssize_t */
+/* #undef _UINT64_T */
 
 /* Define to the type of an unsigned integer type of width exactly 32 bits if
    such a type exists and the standard includes do not define it. */
 /* #undef uint32_t */
 
-/* Define to the type of an unsigned integer type of width exactly 8 bits if
+/* Define to the type of an unsigned integer type of width exactly 64 bits if
    such a type exists and the standard includes do not define it. */
-/* #undef uint8_t */
+/* #undef uint64_t */

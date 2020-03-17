@@ -22,7 +22,6 @@
 int main(int argc, char *argv[]) {
 
     // Check if the user entered a number
-    //std::string num;
     LARGEINT num;
     try{
         std::istringstream ss(argv[1]);
@@ -37,13 +36,14 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
-    // TODO: Add in number checking
+    // Create Servers to process the numbers
     std::cout << "Starting Server Threads...\n";
     std::string ip_addr = "127.0.0.1";
     PrimeServer* server1 = new PrimeServer(ip_addr, 9997, num);
     PrimeServer* server2 = new PrimeServer(ip_addr, 9998, num);
     PrimeServer* server3 = new PrimeServer(ip_addr, 9999, num);
 
+    // Thread the servers and join them when they are finished
     std::thread thd1(&PrimeServer::start, server1);
     std::thread thd2(&PrimeServer::start, server2);
     std::thread thd3(&PrimeServer::start, server3);
